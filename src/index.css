@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@layer base {
+  a {
+    color: revert;
+    text-decoration: underline;
+  }
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}

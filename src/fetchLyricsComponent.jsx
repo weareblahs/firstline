@@ -1,0 +1,46 @@
+import ky from "ky";
+
+export const fetchLyrics = async (songName) => {
+  try {
+    const response = await ky.get(`https://api.lyrics.ovh/suggest/${songName}`);
+    const data = await response.json();
+    if (data.total > 0) {
+      let constructed = "";
+      // from all the results, best to pick the song name that matches the response, else pick the first one
+      const preprocessData = data.data.find(
+        (s) => s.title && s.title.toLowerCase() === songName.toLowerCase(),
+      );
+
+      // special case: if the artist name contains "," and "&" replace it appropriately
+      //               so that the Lyrics.ovh API can parse it properly
+      // example: "Earth, Wind & Fire" => "Earth Wind and Fire"
+
+      if (preprocessData) {
+        // found lyrics with exact name as song
+        constructed = `${data.data[0].artist.name.replace(",", "").replace("&", "and")}/${preprocessData.title.replace(",", "").replace("&", "and").replace("/", " ").replace("'", "")}}`;
+      } else {
+        // else get first from index
+        constructed = `${data.data[0].artist.name.replace(",", "").replace("&", "and")}/${data.data[0].title.replace(",", "").replace("&", "and").replace("/", " ").replace("'", "")}`;
+      }
+      // construct URL
+      const constructedData = await ky
+        .get(`https://api.lyrics.ovh/v1/${constructed}`)
+        .json();
+      if (constructedData) {
+        // return lyrics in plaintext
+        return {
+          songInfo: constructed.split("/"),
+          lyrics: constructedData.lyrics,
+        };
+      }
+    }
+  } catch (error) {
+    if (songName !== "") {
+      console.error("Failed to fetch lyrics:", error);
+      return "???";
+    } else {
+      console.error("Failed to fetch lyrics:", error);
+      return "...";
+    }
+  }
+};
