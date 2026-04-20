@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { fetchLyrics } from "./fetchLyricsComponent";
-import debounce from "debounce";
 
 function App() {
   const [songName, setName] = useState("");
