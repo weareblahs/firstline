@@ -5,12 +5,12 @@ export const fetchLyrics = async (songName) => {
     const response = await ky.get(`https://api.lyrics.ovh/suggest/${songName}`);
     const data = await response.json();
     if (data.total > 0) {
-      let constructed = "";
-      // from all the results, best to pick the song name that matches the response, else pick the first one
+      let constructed = ""; // initialize constructed artist/songname combination for URL
+      // from all the results, best to pick the song name that matches the response
       const preprocessData = data.data.find(
         (s) => s.title && s.title.toLowerCase() === songName.toLowerCase(),
       );
-      const info = ["", ""];
+      const info = ["", ""]; // create blank info for footer
 
       // if the artist name contains "," and "&" replace it appropriately
       // so that the Lyrics.ovh API can parse it properly
@@ -45,7 +45,7 @@ export const fetchLyrics = async (songName) => {
         .get(`https://api.lyrics.ovh/v1/${constructed}`)
         .json();
       if (constructedData) {
-        // return lyrics in plaintext
+        // return lyrics and song information in plaintext
         return {
           songInfo: info,
           lyrics: constructedData.lyrics,

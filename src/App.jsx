@@ -49,7 +49,9 @@ function App() {
         </div>
         <div className="h-[60vh] flex items-center justify-center p-6">
           <div>
-            <h1 className="text-6xl/snug text-center font-bold">{res}</h1>
+            <h1 className="text-5xl/tight lg:text-6xl/snug text-center font-bold">
+              {res}
+            </h1>
           </div>
         </div>
         <div className="fixed bottom-0 left-0 right-0 p-6 text-center">
