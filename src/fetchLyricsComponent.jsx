@@ -8,7 +8,8 @@ export const fetchLyrics = async (songName) => {
       let constructed = ""; // initialize constructed artist/songname combination for URL
       // from all the results, best to pick the song name that matches the response
       const preprocessData = data.data.find(
-        (s) => s.title && s.title.toLowerCase() === songName.toLowerCase(),
+        (s) =>
+          s.title && s.title_short.toLowerCase() === songName.toLowerCase(),
       );
       const info = ["", ""]; // create blank info for footer
 
