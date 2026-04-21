@@ -15,7 +15,11 @@ function App() {
       if (result.length !== 3) {
         // if result is not "???" or "..."
         const outputLyrics = result.lyrics.split("\n").filter((o) => o !== "");
-        setRes(result.lyrics[0] === "[" ? outputLyrics[1] : outputLyrics[0]);
+        setRes(
+          result.lyrics[0].includes("[") || result.lyrics[0].includes("(")
+            ? outputLyrics[1]
+            : outputLyrics[0],
+        );
         setInfo(result.songInfo);
       } else {
         setRes(result);
