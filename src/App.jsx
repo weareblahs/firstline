@@ -71,7 +71,7 @@ function App() {
             Lyrics data from the <a href="https://lyrics.ovh">Lyrics.ovh</a> API
             (<a href="https://github.com/NTag/lyrics.ovh">source code</a>). Used
             under MIT License. Made by Tan (weareblahs).{" "}
-            <a href="https://github.com/weareblahs/">Source code</a>
+            <a href="https://github.com/weareblahs/firstline">Source code</a>
           </p>
         </div>
       </div>
